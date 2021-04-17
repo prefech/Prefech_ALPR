@@ -13,3 +13,5 @@ Config.JD_logs = true
 Config.LogsColor = "#F1F1F1"
 Config.LogsChannelCommands = "Prefech_ALPRLogs"
 Config.logsChannelAlert = "Prefech_ALPRAlert"
+
+Config.versionCheck = "1.0.1"
