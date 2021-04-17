@@ -2,7 +2,7 @@ local plateTable = {}
 
 RegisterCommand("addplate", function(source, args, rawCommand)
 	if IsPlayerAceAllowed(source, Config.AdminPerm) or Config.NoPerms == true then	
-		local plate = table.concat(args, " "):upper()
+		local plate = table.concat(args, " "):upper():gsub("%s+","")
 		if has_value(plateTable, plate) then
 			TriggerClientEvent('chat:addMessage', source, { args = {"^5["..Config.ChatPrefix.."]", "^1This plate is already being tracked!"} })	
 		else
@@ -20,7 +20,7 @@ end)
 
 RegisterCommand("delplate", function(source, args, rawCommand)
 	if IsPlayerAceAllowed(source, Config.AdminPerm) or Config.NoPerms == true then	
-		local plate = table.concat(args, " "):upper()
+		local plate = table.concat(args, " "):upper():gsub("%s+","")
 		if has_value(plateTable, plate) then
 			TriggerClientEvent('chat:addMessage', source, { args = {"^5["..Config.ChatPrefix.."]", "Plate: ^1^*"..plate.."^r^0 removed from the tracker."} })	
 			removebyKey(plateTable, plate)
@@ -86,7 +86,7 @@ end)
 
 RegisterServerEvent("Prefech:checkPerms")
 AddEventHandler("Prefech:checkPerms", function(source)
-    if IsPlayerAceAllowed(source, "jd.test") or Config.NoPerms == true then
+    if IsPlayerAceAllowed(source, Config.AdminPerm) or Config.NoPerms == true then
         TriggerClientEvent("Prefech:getPerms", source, true)
     else
         TriggerClientEvent("Prefech:getPerms", source, false)

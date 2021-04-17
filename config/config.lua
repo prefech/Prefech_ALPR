@@ -2,7 +2,7 @@ Config = {}
 Config.NoPerms = true
 Config.AdminPerm = "jd.perms" -- to get alert messages
 
-Config.CameraBlips = true
+Config.CameraBlips = false
 
 Config.ChatPrefix = "Prefech"
 Config.Notification =   "Loc: {{Street_Name}}\nHeading: {{Heading}}\nPostal: {{Postal}}"
@@ -14,4 +14,4 @@ Config.LogsColor = "#F1F1F1"
 Config.LogsChannelCommands = "Prefech_ALPRLogs"
 Config.logsChannelAlert = "Prefech_ALPRAlert"
 
-Config.versionCheck = "1.0.1"
+Config.versionCheck = "1.0.1b"

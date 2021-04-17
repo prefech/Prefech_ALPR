@@ -28,8 +28,8 @@ Citizen.CreateThread(function()
         while insideCameraZone() do
             Citizen.Wait(0)
             if IsPedInAnyVehicle(GetPlayerPed(PlayerId()), true) then
-                local vehicle = GetVehiclePedIsIn(GetPlayerPed(PlayerId()))                
-                if has_value(plateTable, GetVehicleNumberPlateText(vehicle):gsub("%s+",""):upper()) then
+                local vehicle = GetVehiclePedIsIn(GetPlayerPed(PlayerId()))
+                if has_value(plateTable, GetVehicleNumberPlateText(vehicle):upper():gsub("%s+","")) then
                     SetHornEnabled(vehicle, true)
                     TriggerServerEvent('Prefech:sendblip', NetworkGetNetworkIdFromEntity(GetVehiclePedIsIn(GetPlayerPed(PlayerId()))))
                     if(alertSend == false) then

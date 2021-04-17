@@ -1,5 +1,5 @@
 {
-	"date": "Apr 14, 2021",
-	"version": "1.0.1",
-	"changelog": "Fixed bug where licenseplates with less that 8 characters where not tracked"
+	"date": "Apr 17, 2021",
+	"version": "1.0.1b",
+	"changelog": "Bug Fix"
 }
