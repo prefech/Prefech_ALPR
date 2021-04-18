@@ -25,8 +25,7 @@ A state wide CCTV network monitors all vehicle activities 24/7. This way you wil
 - `/addplate [Plate]`   This will add a plate to the search list
 - `/delplate [Plate]`   This will remove a plate from the search list
 - `/plates`             This will show you the current search list.
-- Default group you can give is Admin (You can add as many as you need.)
-- Default donator groups are VIP and VIP PLUS. (You can add as many as you need.)
+- `/clearplates`	This will remove all plates from the tracker
 
 # Download & Installation
 1. Download the files
