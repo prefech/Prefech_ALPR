@@ -28,11 +28,6 @@ A state wide CCTV network monitors all vehicle activities 24/7. This way you wil
 - Default group you can give is Admin (You can add as many as you need.)
 - Default donator groups are VIP and VIP PLUS. (You can add as many as you need.)
 
-## Download & Installation
-For more info in adding groups you need to have knowledge about lua.
-If you need support with adding groups you can join my discord: https://discord.gg/m4BvmkG
-
-
 # Download & Installation
 1. Download the files
 2. Put the Prefech_ALPR folder in the server resource directory
