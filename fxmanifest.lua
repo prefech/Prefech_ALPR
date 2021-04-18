@@ -1,6 +1,6 @@
 author 'Prefech'
 description 'Prefech_ALPR (https://prefech.com/)'
-version '1.0.1b'
+version '1.0.2'
 
 -- Config
 shared_script 'config/config.lua'

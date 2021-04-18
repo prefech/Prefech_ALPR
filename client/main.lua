@@ -29,39 +29,41 @@ Citizen.CreateThread(function()
             Citizen.Wait(0)
             if IsPedInAnyVehicle(GetPlayerPed(PlayerId()), true) then
                 local vehicle = GetVehiclePedIsIn(GetPlayerPed(PlayerId()))
-                if has_value(plateTable, GetVehicleNumberPlateText(vehicle):upper():gsub("%s+","")) then
-                    SetHornEnabled(vehicle, true)
-                    TriggerServerEvent('Prefech:sendblip', NetworkGetNetworkIdFromEntity(GetVehiclePedIsIn(GetPlayerPed(PlayerId()))))
-                    if(alertSend == false) then
-                        TriggerServerEvent('Prefech:sendalert', NetworkGetNetworkIdFromEntity(GetVehiclePedIsIn(GetPlayerPed(PlayerId()))))
+                if(GetPedInVehicleSeat(vehicle, -1) == GetPlayerPed(-1)) then
+                    if has_value(plateTable, GetVehicleNumberPlateText(vehicle):upper():gsub("%s+","")) then
+                        SetHornEnabled(vehicle, true)
                         local coords = GetEntityCoords(vehicle)
-                        local var1 = GetStreetNameAtCoord(coords.x, coords.y, coords.z, Citizen.ResultAsInteger(), Citizen.ResultAsInteger())
-                        hash1 = GetStreetNameFromHashKey(var1);
-                        heading = GetEntityHeading(vehicle);		
-                        for k, v in pairs(directions) do
-                            if (math.abs(heading - v) < 45) then
-                                heading = k;
-                        
-                                if (heading == 1) then
-                                    heading = 'North';
+                        if(alertSend == false) then
+                            TriggerServerEvent('Prefech:sendblip', coords.x, coords.y, coords.z)
+                            TriggerServerEvent('Prefech:sendalert', coords.x, coords.y, coords.z, GetVehicleNumberPlateText(vehicle), GetDisplayNameFromVehicleModel(GetEntityModel(vehicle)), GetEntityHeading(vehicle))
+                            local var1 = GetStreetNameAtCoord(coords.x, coords.y, coords.z, Citizen.ResultAsInteger(), Citizen.ResultAsInteger())
+                            hash1 = GetStreetNameFromHashKey(var1);
+                            heading = GetEntityHeading(vehicle);		
+                            for k, v in pairs(directions) do
+                                if (math.abs(heading - v) < 45) then
+                                    heading = k;
+                            
+                                    if (heading == 1) then
+                                        heading = 'North';
+                                        break;
+                                    end
+
                                     break;
                                 end
-
-                                break;
                             end
+                            local string = "**"..Config.Notification
+                            local string = string:gsub("\n","\n")
+                            local string = string:gsub("{{Plate}}",""..GetVehicleNumberPlateText(vehicle).."")
+                            local string = string:gsub("{{Vehicle_Name}}",""..GetDisplayNameFromVehicleModel(GetEntityModel(vehicle)).."")
+                            local string = string:gsub("{{Street_Name}}",""..hash1.."")
+                            local string = string:gsub("{{Heading}}",""..heading.."")
+                            if Config.JD_logs then
+                                exports.JD_logs:discord(string, 0, 0, Config.LogsColor, Config.LogsChannelCommands)
+                            end
+                            alertSend = true
                         end
-                        local string = "**"..Config.Notification
-                        local string = string:gsub("\n","**\n")
-                        local string = string:gsub("{{Plate}}","**"..GetVehicleNumberPlateText(vehicle).."")
-                        local string = string:gsub("{{Vehicle_Name}}","**"..GetDisplayNameFromVehicleModel(GetEntityModel(vehicle)).."")
-                        local string = string:gsub("{{Street_Name}}","**"..hash1.."")
-                        local string = string:gsub("{{Heading}}","**"..heading.."**")
-                        if Config.JD_logs then
-                            exports.JD_logs:discord(string, 0, 0, Config.LogsColor, Config.LogsChannelCommands)
-                        end
-                        alertSend = true
+                        Citizen.Wait(2000)
                     end
-                    Citizen.Wait(2000)
                 end
             end
         end
@@ -81,35 +83,26 @@ Citizen.CreateThread(function()
 end)
 
 RegisterNetEvent("Prefech:trackerset")
-AddEventHandler("Prefech:trackerset", function(veh)
-    local veh = NetworkGetEntityFromNetworkId(veh)
+AddEventHandler("Prefech:trackerset", function(x, y, z)
     if(isAllowed) then
-        local blip = AddBlipForEntity(veh)
+        local blip = AddBlipForCoord(x, y, z)
         SetBlipFlashes(blip, true)
-        if GetVehicleClass(veh) == 8 then
-            SetBlipSprite(blip, 348)
-        else
-            SetBlipSprite(blip, 326)
-        end
-        BeginTextCommandSetBlipName("STRING")
-        AddTextComponentString("ALPR hit: "..GetVehicleNumberPlateText(veh))
-        EndTextCommandSetBlipName(blip)
+        SetBlipSprite(blip, 326)
         SetBlipColour(blip, 1)
-        Citizen.Wait(2000)
+        Citizen.Wait(Config.BlipTime * 1000)
         RemoveBlip(blip)
     end
 end)
 
 RegisterNetEvent("Prefech:alertsend")
-AddEventHandler("Prefech:alertsend", function(veh, postal)
+AddEventHandler("Prefech:alertsend", function(x, y, z, plate, model, heading, postal)
     local veh = NetworkGetEntityFromNetworkId(veh)
     if(isAllowed) then
-        local coords = GetEntityCoords(veh)
-        local var1 = GetStreetNameAtCoord(coords.x, coords.y, coords.z, Citizen.ResultAsInteger(), Citizen.ResultAsInteger())
+        local var1 = GetStreetNameAtCoord(x, y, z, Citizen.ResultAsInteger(), Citizen.ResultAsInteger())
 		hash1 = GetStreetNameFromHashKey(var1);
-        heading = GetEntityHeading(veh);		
+        		
         for k, v in pairs(directions) do
-            if (math.abs(heading - v) < 45) then
+           if (math.abs(heading - v) < 45) then
                 heading = k;
         
                 if (heading == 1) then
@@ -122,18 +115,15 @@ AddEventHandler("Prefech:alertsend", function(veh, postal)
         end
         local string = Config.Notification
         local string = string:gsub("\n","~w~\n")
-        local string = string:gsub("{{Plate}}","~y~"..GetVehicleNumberPlateText(veh).."~w~")
-        local string = string:gsub("{{Vehicle_Name}}","~y~"..GetDisplayNameFromVehicleModel(GetEntityModel(veh)).."~w~")
+        local string = string:gsub("{{Plate}}","~y~"..plate.."~w~")
+        local string = string:gsub("{{Vehicle_Name}}","~y~"..model.."~w~")
         local string = string:gsub("{{Street_Name}}","~y~"..hash1.."~w~")
         local string = string:gsub("{{Heading}}","~y~"..heading.."~w~")
         local string = string:gsub("{{Postal}}","~y~"..postal.."~w~")
-        
-        SetNotificationTextEntry("STRING")
+        BeginTextCommandThefeedPost("STRING")
         AddTextComponentSubstringPlayerName(string)
-        EndTextCommandThefeedPostMessagetext("CHAR_CALL911", "CHAR_CALL911", 0, 0, "Prefech ALPR System", "Vehcile: ~y~"..GetDisplayNameFromVehicleModel(GetEntityModel(veh)).."~w~, Plate: ~y~"..GetVehicleNumberPlateText(veh).." ~w~")
-        EndTextCommandThefeedPostTicker(false, true)
-        AddTextComponentString(string)
-        DrawNotification(true, false)
+        EndTextCommandThefeedPostMessagetext("CHAR_CALL911", "CHAR_CALL911", 0, 0, "Prefech ALPR System", "Vehcile: ~y~"..model.."~w~, Plate: ~y~"..plate.." ~w~")
+        EndTextCommandDisplayText(0.5, 0.5)
         PlaySound(-1, "Menu_Accept", "Phone_SoundSet_Default", 0, 0, 1)
     end
 end)
