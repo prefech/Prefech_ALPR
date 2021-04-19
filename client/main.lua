@@ -23,10 +23,10 @@ end)
 
 Citizen.CreateThread(function()
     while true do
-        Citizen.Wait(0)
+        Citizen.Wait(500)
         alertSend = false
         while insideCameraZone() do
-            Citizen.Wait(0)
+            Citizen.Wait(500)
             if IsPedInAnyVehicle(GetPlayerPed(PlayerId()), true) then
                 local vehicle = GetVehiclePedIsIn(GetPlayerPed(PlayerId()))
                 if(GetPedInVehicleSeat(vehicle, -1) == GetPlayerPed(-1)) then
