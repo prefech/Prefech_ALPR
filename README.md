@@ -1,8 +1,10 @@
 <h4 align="center">
 	<a href="https://github.com/JokeDevil/JD_Perms/releases/latest" title=""><img alt="Licence" src="https://img.shields.io/github/release/JokeDevil/JD_Perms.svg"></a>
 	<a href="LICENSE" title=""><img alt="Licence" src="https://img.shields.io/github/license/JokeDevil/JD_Perms.svg"></a>
-	<a href="https://discord.gg/m4BvmkG" title=""><img alt="Discord Status" src="https://discordapp.com/api/guilds/721339695199682611/widget.png"></a>
+	<a href="https://discord.gg/qyPdHzDKmb" title=""><img alt="Discord Status" src="https://discordapp.com/api/guilds/721339695199682611/widget.png"></a>
 </h4>
+
+https://discord.gg/qyPdHzDKmb
 
 <h4 align="center">
 A state wide CCTV network monitors all vehicle activities 24/7. <br>
@@ -37,4 +39,4 @@ ensure Prefech_ALPR
 <img src="https://prefech.com/img/Github/Prefech_ALPR/MapCounty.png"><br>
 <img src="https://prefech.com/img/Github/Prefech_ALPR/MapCity.png">
 
-### For more support join my discord: https://discord.gg/m4BvmkG
+### For more support join my discord: https://discord.gg/qyPdHzDKmb
