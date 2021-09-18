@@ -4,7 +4,7 @@
 	<a href="https://discord.gg/qyPdHzDKmb" title=""><img alt="Discord Status" src="https://discordapp.com/api/guilds/721339695199682611/widget.png"></a>
 </h4>
 
-https://discord.gg/qyPdHzDKmb
+https://discord.gg/prefech
 
 <h4 align="center">
 A state wide CCTV network monitors all vehicle activities 24/7. <br>
@@ -39,4 +39,4 @@ ensure Prefech_ALPR
 <img src="https://prefech.com/img/Github/Prefech_ALPR/MapCounty.png"><br>
 <img src="https://prefech.com/img/Github/Prefech_ALPR/MapCity.png">
 
-### For more support join my discord: https://discord.gg/qyPdHzDKmb
+### For more support join my discord: https://discord.gg/prefech
